@@ -9,6 +9,7 @@ exports.crearUsuario = async (req, res) => {
     if (!errores.isEmpty()) {
         return res.status(400).json({ errores: errores.array() })
     }
+
     const { email, password } = req.body;
 
     try {

@@ -12,6 +12,7 @@ exports.autenticarUsuario = async (req, res) => {
 
     // extraer el usuario y pw
     const { email, password } = req.body
+    console.log(req.body)
     try {
         //revisa si el usuario está registrado
         let usuario = await Usuario.findOne({ email })
@@ -42,4 +43,14 @@ exports.autenticarUsuario = async (req, res) => {
         console.log(error)
     }
 
+}
+
+exports.usuarioAutenticado = async (req, res) => {
+    try {
+        const usuario = await Usuario.findById(req.usuario.id).select('-password')
+        res.json({ usuario })
+    } catch (error) {
+        console.log(error)
+        res.status(500).json({ msg: 'Hubo un error' })
+    }
 }

@@ -1,7 +1,26 @@
-import React, { useState } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import AlertaContext from '../../context/alertas/alertaContext'
+import AuthContext from '../../context/autenticacion/authContext'
 
-const NuevaCuenta = () => {
+const NuevaCuenta = (props) => {
+
+    const alertaContext = useContext(AlertaContext)
+    const { alerta, mostrarAlerta } = alertaContext
+
+    const authContext = useContext(AuthContext)
+    const { mensaje, autenticado, registrarUsuario } = authContext
+
+    useEffect(() => {
+        if (autenticado) {
+            props.history.push('/proyectos')
+        }
+        if (mensaje) {
+            mostrarAlerta(mensaje.msg, mensaje.categoria)
+
+        }
+
+    }, [mensaje, autenticado, props.history])
 
     const [usuario, guardarUsuario] = useState({
         nombre: '',
@@ -22,11 +41,37 @@ const NuevaCuenta = () => {
     const onSubmit = e => {
         e.preventDefault()
 
-
+        // validación de que no hay campos vacíos
+        if (nombre.trim() === '' ||
+            email.trim() === '' ||
+            password.trim() === '' ||
+            confirmar.trim() === '') {
+            mostrarAlerta('Todos los campos son obligatorios', 'alerta-error')
+            return
+        }
+        // password minimo de 6 caracteres
+        if (password.length < 6) {
+            mostrarAlerta('El password debe de ser de al menos de 6 caracteres', 'alerta-error')
+            return
+        }
+        // 2 password son iguales
+        if (password !== confirmar) {
+            mostrarAlerta('Las contraseñas no son iguales', 'alerta-error')
+            return
+        }
+        // pasarlo al action
+        registrarUsuario({
+            nombre,
+            email,
+            password
+        })
     }
 
     return (
         <div className="form-usuario">
+
+            {alerta ? (<div className={`alerta ${alerta.categoria}`}> {alerta.msg} </div>) : null}
+
             <div className="contenedor-form sombra-dark">
                 <h1>Obtener una cuenta</h1>
 
@@ -36,7 +81,7 @@ const NuevaCuenta = () => {
                     <div className="campo-form">
                         <label htmlFor="nombre">Nombre</label>
                         <input
-                            type="email"
+                            type="text"
                             id="nombre"
                             name="nombre"
                             placeholder="Tu Nombre"

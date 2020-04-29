@@ -12,7 +12,7 @@ exports.autenticarUsuario = async (req, res) => {
 
     // extraer el usuario y pw
     const { email, password } = req.body
-    console.log(req.body)
+
     try {
         //revisa si el usuario está registrado
         let usuario = await Usuario.findOne({ email })

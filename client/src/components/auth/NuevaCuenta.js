@@ -19,7 +19,7 @@ const NuevaCuenta = (props) => {
             mostrarAlerta(mensaje.msg, mensaje.categoria)
 
         }
-
+        // eslint-disable-next-line
     }, [mensaje, autenticado, props.history])
 
     const [usuario, guardarUsuario] = useState({
@@ -133,7 +133,7 @@ const NuevaCuenta = (props) => {
 
                 </form>
 
-                <Link to={'/'} clasName="enlace-cuenta">
+                <Link to={'/'} className="enlace-cuenta">
                     Volver a Iniciar Sesión
                 </Link>
 

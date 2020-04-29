@@ -18,7 +18,7 @@ const Login = (props) => {
             mostrarAlerta(mensaje.msg, mensaje.categoria)
 
         }
-
+        // eslint-disable-next-line
     }, [mensaje, autenticado, props.history])
 
     const [usuario, guardarUsuario] = useState({
@@ -89,7 +89,7 @@ const Login = (props) => {
 
                 </form>
 
-                <Link to={'/nueva-cuenta'} clasName="enlace-cuenta">
+                <Link to={'/nueva-cuenta'} className="enlace-cuenta">
                     Obtener Cuenta
                 </Link>
 

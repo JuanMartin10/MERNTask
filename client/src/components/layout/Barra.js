@@ -7,26 +7,24 @@ const Barra = () => {
     const { usuario, usuarioAutenticado, cerrarSesion } = authContext;
 
     useEffect(() => {
-        console.log('useEffect')
-        usuarioAutenticado()
-    }, [])
+        usuarioAutenticado();
+        // eslint-disable-next-line
+    }, []);
 
     return (
         <header className="app-header">
-            {usuario ? <p className="nombre-usuario">Hola <span>{usuario.nombre}</span></p> : null}
+            {usuario ? <p className="nombre-usuario">Hola <span>{usuario.nombre} </span> </p> : null}
 
 
             <nav className="nav-principal">
                 <button
                     className="btn btn-blank cerrar-sesion"
                     onClick={() => cerrarSesion()}
-                >
-                    Cerrar Sesion
-                </button>
-
+                >Cerrar Sesión</button>
             </nav>
         </header>
-    )
+    );
 }
+
 
 export default Barra
